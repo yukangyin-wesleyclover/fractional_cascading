@@ -25,7 +25,7 @@ class FractionalCascading:
         _answer += arr1[p1:] + arr2[p2:]
         return _answer
 
-    def _merge_input_arrs(self):
+    def merge_input_arrs(self):
         self.arrs.insert(
             0, [FractionalCascadingNode(value, -1, -1) for value in self.input_arrs[-1]]
         )
@@ -50,7 +50,7 @@ class FractionalCascading:
             arr.insert(0, FractionalCascadingNode(INT_MIN, -1, -1))
             arr.append(FractionalCascadingNode(INT_MAX, -1, -1))
 
-    def _prepare_pointers(self):
+    def calculate_pointers(self):
         for i, arr in enumerate(self.arrs):
             for j, node in enumerate(arr):
                 node.right = bisect.bisect_left(self.input_arrs[i], node.value)
@@ -63,8 +63,6 @@ class FractionalCascading:
                 )
 
     def find(self, query_key):
-        self._merge_input_arrs()
-        self._prepare_pointers()
         index = bisect.bisect_left(
             list(map(lambda node: node.value, self.arrs[0])), query_key
         )

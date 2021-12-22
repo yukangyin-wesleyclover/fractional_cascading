@@ -40,7 +40,7 @@ class IteratedSearch:
         _answer += arr1[p1:] + arr2[p2:]
         return _answer
 
-    def _calculate_pointers(self):
+    def calculate_pointers(self):
         auxiliary_array = [INT_MAX] * self.h
 
         for i in range(self.n * self.h - 1, -1, -1):
@@ -48,7 +48,7 @@ class IteratedSearch:
             auxiliary_array[self.merged_arrs[i].origin] = self.merged_arrs[i].value
             self.merged_arrs[i].pointers = auxiliary_array
 
-    def _merge_sorted_arrs(self):
+    def merge_sorted_arrs(self):
         self.merged_arrs = self.arrs.copy()
         while len(self.merged_arrs) > 1:
             _temp_merged_arrs = []
@@ -65,9 +65,6 @@ class IteratedSearch:
         self.merged_arrs = self.merged_arrs[0]
 
     def find(self, query_key):
-        self._merge_sorted_arrs()
-        self._calculate_pointers()
-
         # locate query key
         index = bisect.bisect_left(
             list(map(lambda node: node.value, self.merged_arrs)), query_key
