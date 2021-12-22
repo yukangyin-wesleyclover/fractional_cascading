@@ -48,7 +48,7 @@ class IteratedSearch:
             auxiliary_array[self.merged_arrs[i].origin] = self.merged_arrs[i].value
             self.merged_arrs[i].pointers = auxiliary_array
 
-    def merge_sorted_arrs(self):
+    def merge_input_arrs(self):
         self.merged_arrs = self.arrs.copy()
         while len(self.merged_arrs) > 1:
             _temp_merged_arrs = []
