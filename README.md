@@ -37,15 +37,18 @@ Three search algorithms are implemented in this course project:
 3. initialize a search solution by passing input arrays into solution's constructor, such as
 
    ```
-   naive_binary_search = NaiveBinarySearch(arrs)
-   iterated_search = IteratedSearch(arrs)
    fractional_cascading = FractionalCascading(arrs)
    ```
 
-4. invoke search solution's `find` method by passing into query key, such as
+4. merge input arrays and calculate pointers, such as
 
    ```
-   naive_binary_search.find(query_key)
-   iterated_search.find(query_key)
+   fractional_cascading.merge_input_arrs()
+   fractional_cascading.calculate_pointers()
+   ```
+
+5. invoke search solution's `find` method by passing into query key, such as
+
+   ```
    fractional_cascading.find(query_key)
    ```

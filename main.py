@@ -16,11 +16,15 @@ print("Naive Binary Search:", answers_1)
 
 # Solution 2: Iterated Search
 iterated_search = IteratedSearch(arrs)
+iterated_search.merge_input_arrs()
+iterated_search.calculate_pointers()
 answers_2 = iterated_search.find(query_key)
 print("Iterated Search:", answers_2)
 
 
 # Solution 3: Fractional Cascading
 fractional_cascading = FractionalCascading(arrs)
+fractional_cascading.merge_input_arrs()
+fractional_cascading.calculate_pointers()
 answers_3 = fractional_cascading.find(query_key)
 print("Fractional Cascading:", answers_3)
