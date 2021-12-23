@@ -8,6 +8,7 @@ class FractionalCascading:
     def __init__(self, input_arrs):
         self.input_arrs = input_arrs
         self.arrs = []
+        self.values_in_largest_merged_arrs = []
         self.h = len(input_arrs)  # number of sorted arrays
         self.n = len(input_arrs[0])  # number of elements in each sorted arrays
 
@@ -49,6 +50,9 @@ class FractionalCascading:
         for arr in self.arrs:
             arr.insert(0, FractionalCascadingNode(INT_MIN, -1, -1))
             arr.append(FractionalCascadingNode(INT_MAX, -1, -1))
+        self.values_in_largest_merged_arrs = list(
+            map(lambda node: node.value, self.arrs[0])
+        )
 
     def calculate_pointers(self):
         for i, arr in enumerate(self.arrs):
@@ -63,23 +67,19 @@ class FractionalCascading:
                 )
 
     def find(self, query_key):
-        index = bisect.bisect_left(
-            list(map(lambda node: node.value, self.arrs[0])), query_key
-        )
-        right = self.arrs[0][index].right
-
-        _answers = []
-        _answers.append(self.input_arrs[0][right])  # first value
-
+        index = bisect.bisect_left(self.values_in_largest_merged_arrs, query_key)
         down = self.arrs[0][index].down
-        for i in range(1, len(self.arrs)):
+
+        _answers = [self.input_arrs[0][self.arrs[0][index].right]]
+
+        for i in range(1, 3):
             if self.arrs[i][down - 1].value >= query_key:
                 # back
-                right = self.arrs[i][down - 1].right
+                _answers.append(self.input_arrs[i][self.arrs[i][down - 1].right])
                 down = self.arrs[i][down - 1].down
+
             else:
-                right = self.arrs[i][down].right
+                _answers.append(self.input_arrs[i][self.arrs[i][down].right])
                 down = self.arrs[i][down].down
-            _answers.append(self.input_arrs[i][right])  # value
 
         return _answers
