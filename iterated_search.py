@@ -9,6 +9,7 @@ class IteratedSearch:
         self.input_arrs = input_arrs
         self.arrs = []
         self.merged_arrs = []
+        self.values_in_merged_arrs = []
         self.h = len(input_arrs)  # number of sorted arrays
         self.n = len(input_arrs[0])  # number of elements in each sorted arrays
 
@@ -64,11 +65,14 @@ class IteratedSearch:
             self.merged_arrs = _temp_merged_arrs
         self.merged_arrs = self.merged_arrs[0]
 
+        # map node in merged_arrs to pure numbers
+        self.values_in_merged_arrs = list(
+            map(lambda node: node.value, self.merged_arrs)
+        )
+
     def find(self, query_key):
         # locate query key
-        index = bisect.bisect_left(
-            list(map(lambda node: node.value, self.merged_arrs)), query_key
-        )
+        index = bisect.bisect_left(self.values_in_merged_arrs, query_key)
 
         # directly read off the answers
         return self.merged_arrs[index].pointers
